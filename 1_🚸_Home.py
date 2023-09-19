@@ -19,6 +19,9 @@ if 'messages' not in st.session_state:
 if 'fnames' not in st.session_state:
     st.session_state.fnames = []
 
+if 'user_cf_key' not in st.session_state:
+    st.session_state.user_cf_key = ""
+
 def getKB():
     idx = 0
     kb = ""
@@ -87,6 +90,13 @@ def getAvatar(role):
 
 with st.sidebar:
     st.image('./resources/OIG2.png')
+    #st.markdown("## :rainbow[If you would like to use your own Clarifai PAT, enter it here]", unsafe_allow_html=True)
+    #st.session_state.user_cf_key = st.text_input(label='user pat',
+    #                                             type='password',
+    #                                             placeholder="Your Clarifai PAT",
+    #                                             label_visibility='hidden')
+    #if st.session_state.user_cf_key != "":
+    #    st.success('Your PAT is loaded', icon="✅")
 
 st.markdown("""
 <style>
@@ -207,14 +217,22 @@ if st.session_state.trainingCompleted:
         st.markdown('### Step 4️⃣ 👇🏻 :rainbow[Choose your bot role to work with!]')
     BotOption = st.radio(
         "Available Bots 🤖",
-        ["Teacher Bot", "Student Bot"],
-        captions=["👩🏻‍🏫 Chat bot for teacher assistant tasks",
-                "👨🏻‍🎓 Q&A bot for answering questions"],
+        ["Student Bot", "Teacher Bot"],
+        captions=["👨🏻‍🎓 Q&A bot for answering questions",
+                "👩🏻‍🏫 Chat bot for teacher assistant tasks"],
                 horizontal=True
     )
     if BotOption == "Teacher Bot":
-        st.info(' I run in CPU 💻. We appreciate your **Patience** 🧘🏻 \n as it takes more time to generate the results',
+        st.info(' I run on CPU 💻. We appreciate your **Patience** 🧘🏻 \n as it takes more time to generate the results',
         icon="⏳")
+        bm = """
+Please note this is an _**experimental effort**_ to force a LLM to use the uploaded context.
+Sometimes the model hallucinates and would not provide any response. In such cases, kindly retry 🙏.
+
+If you are a nerd 🤓 who wants to understand how to power a LLM with custom index, 👈🏻 head out to the architecture page 📐 to learn more 👓
+
+"""
+        st.warning(bm, icon="⚠️")
         with st.chat_message(name="assistant"):
             st.markdown('Chat with me')
         for message in st.session_state.messages:

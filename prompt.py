@@ -24,9 +24,10 @@ MODEL_VERSION_ID = 'ad16eda6ac054796bf9f348ab6733c72'
 
 class LLM_Hander:
     def __init__(self):
+        pat = PAT
         Cfllm = LangChainLLM(llm = Clarifai(
-        pat=PAT, user_id=USER_ID, app_id=APP_ID, model_id=MODEL_ID
-    ))
+        pat=pat, user_id=USER_ID, app_id=APP_ID, model_id=MODEL_ID
+            ))
         self.documents = []
         self.chat_template = """
             I want you to act as a teacher's assistant. Your task is to help teachers in cutting down their boring tasks.
