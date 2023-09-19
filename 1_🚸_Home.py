@@ -218,7 +218,7 @@ if st.session_state.trainingCompleted:
         with st.chat_message(name="assistant"):
             st.markdown('Chat with me')
         for message in st.session_state.messages:
-            with st.chat_message(name=message["role"])):
+            with st.chat_message(name=message["role"]):
                 st.markdown(message["content"])
 
         if prompt := st.chat_input("How may I help you?"):
