@@ -215,17 +215,17 @@ if st.session_state.trainingCompleted:
     if BotOption == "Teacher Bot":
         st.info(' I run in CPU 💻. We appreciate your **Patience** 🧘🏻 \n as it takes more time to generate the results',
         icon="⏳")
-        with st.chat_message(name="Student Bot", avatar="👩🏻‍🏫"):
+        with st.chat_message(name="assistant"):
             st.markdown('Chat with me')
         for message in st.session_state.messages:
-            with st.chat_message(name=message["role"], avatar=getAvatar(message["role"])):
+            with st.chat_message(name=message["role"])):
                 st.markdown(message["content"])
 
         if prompt := st.chat_input("How may I help you?"):
             st.session_state.messages.append({"role": "user", "content": prompt})
             with st.chat_message("user"):
                 st.markdown(prompt)
-            with st.chat_message(name='Teacher Bot', avatar="👩🏻‍🏫"):
+            with st.chat_message(name='assistant'):
                 message_placeholder = st.empty()
                 full_response = ""
                 with st.spinner(text="Thinking... 💭💭💭"):
@@ -245,13 +245,13 @@ if st.session_state.trainingCompleted:
                 st.button('Reset Chat 🗑️', use_container_width=True, on_click=resetChat)
 
     if BotOption == "Student Bot":
-        with st.chat_message(name="Student Bot", avatar="👨🏻‍🎓"):
+        with st.chat_message(name="assistant"):
             st.markdown('Ask a question')
         if prompt := st.chat_input('ask....'):
             m = {"role" : "user", "content" : prompt}
             with st.chat_message("user"):
                 st.markdown(prompt)
-            with st.chat_message(name='Student Bot', avatar="👨🏻‍🎓"):
+            with st.chat_message(name='assistant'):
                 with st.spinner('Thinking'):
                     if st.session_state.botHandler != None:
                         r = st.session_state.botHandler.firePrompt('student', prompt)
